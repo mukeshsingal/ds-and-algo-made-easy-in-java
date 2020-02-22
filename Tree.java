@@ -39,8 +39,10 @@ class Tree {
         // System.out.println("\nLevel Order");
         //levelOrderTraversal(root);
         //reverseLevelOrderTraversal(root);
-        System.out.println("Height of binary tree is  " + heightOfTree(root));
-        System.out.println("Height of binary tree is  " + heightOfTreeIterative(root));
+        //System.out.println("Height of binary tree is  " + heightOfTree(root));
+        //System.out.println("Height of binary tree is  " + heightOfTreeIterative(root));
+        System.out.println("Leaf count " +  leafCount(root));
+        System.out.println("Leaf count iterative " +  leafCountIterative(root));
         //System.out.println("max is " + findMax(root));
     }
 
@@ -53,6 +55,7 @@ class Tree {
         root.right.left = new Node(6);
         root.right.right = new Node(7);
         root.right.right.right = new Node(8);
+        root.right.right.left = new Node(9);
         return root;
     }
 
@@ -217,6 +220,31 @@ class Tree {
             }
         }
         return height;
+    }
+
+    public static int leafCountIterative(Node root) {
+        //Do level order traversal
+        int leafCount = 0;
+        if(root == null) {
+            return leafCount;
+        }
+        Queue<Node> queue  = new LinkedList<>();
+        queue.add(root);
+        
+        while(!queue.isEmpty()) {
+            Node node = queue.remove();
+            if(node.left == null && node.right == null) leafCount++;
+            if(node.left != null) queue.add(node.left);
+            if(node.right != null) queue.add(node.right);       
+        }
+        return leafCount;
+    }
+    public static int leafCount(Node root) {
+        if(root == null) return 0;
+        if(root.left == null & root.right == null) {
+            return 1;
+        }
+        return leafCount(root.left) + leafCount(root.right);
     }
     
 
