@@ -28,6 +28,7 @@ class Tree {
 
     public static void main(String[] args) {
         Node root = prepareTree();
+        Node root2 = prepareTree2();
         // System.out.println("\nPre ");
         // preOreder(root);
         // System.out.println("\nin");
@@ -41,12 +42,25 @@ class Tree {
         //reverseLevelOrderTraversal(root);
         //System.out.println("Height of binary tree is  " + heightOfTree(root));
         //System.out.println("Height of binary tree is  " + heightOfTreeIterative(root));
-        System.out.println("Leaf count " +  leafCount(root));
-        System.out.println("Leaf count iterative " +  leafCountIterative(root));
-        //System.out.println("max is " + findMax(root));
+        //System.out.println("Leaf count " +  leafCount(root));
+        //System.out.println("Leaf count iterative " +  leafCountIterative(root));
+        //System.out.println("max is " + findMax(root));\
+        System.out.println("ifStructureSame  " +  ifStructureSame(root, root2));
     }
 
     public static Node prepareTree() {
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+        root.right.right.right = new Node(8);
+    
+        return root;
+    }
+    public static Node prepareTree2() {
         Node root = new Node(1);
         root.left = new Node(2);
         root.right = new Node(3);
@@ -245,6 +259,14 @@ class Tree {
             return 1;
         }
         return leafCount(root.left) + leafCount(root.right);
+    }
+
+    public static boolean ifStructureSame(Node root1, Node root2) {
+        if(root1 == null && root2 == null) return true;
+        if(root1 != null && root2 != null) {
+            return ifStructureSame(root1.left, root2.left) && ifStructureSame(root1.right, root2.right);
+        }
+        return false;
     }
     
 
