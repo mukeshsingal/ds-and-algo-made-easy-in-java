@@ -53,7 +53,8 @@ class Tree {
         //System.out.println("maxSumLevel "  + maxSumLevel(root));
         //printAllPathToLeaves(root);
         //System.out.println("checkPathSum" + checkPathSum(root, 91));
-        miror(root);
+        //miror(root);
+        printAnsesstor(root, 7);
         
         
     }
@@ -401,5 +402,21 @@ class Tree {
         mirorHelper(root.right, tmp);
     }
 
+    public static boolean printAnsesstor(Node root, int value) {
+        if(root == null) {
+            return false;
+        }
+        if(root.value == value) {
+            System.out.println(root.value);
+            return true;
+        }
+        boolean left = printAnsesstor(root.left, value);
+        boolean right= printAnsesstor(root.right, value);
+        if(left || right) {
+            System.out.println(root.value);
+            return true;
+        }
+        return false;
+    }
 }
 
