@@ -46,9 +46,11 @@ class Tree {
         //System.out.println("Leaf count iterative " +  leafCountIterative(root));
         //System.out.println("max is " + findMax(root));\
         //System.out.println("ifStructureSame  " +  ifStructureSame(root, root2));
-        width = 0;
-        diameter(root);
-        System.out.println("Diameter is " + width);
+        // width = 0;
+        // diameter(root);
+        // System.out.println("Diameter is " + width);
+        
+        System.out.println("Width "  + width(root));
     }
 
     public static Node prepareTree() {
@@ -280,6 +282,31 @@ class Tree {
             width = left + right + 1;
         }
         return Math.max(left, right) + 1;
+    }
+    public static int width(Node root) {
+        //Do level order traversal
+        int width = 0;
+        if(root == null) {
+            return width;
+        }
+        Queue<Node> queue  = new LinkedList<>();
+        queue.add(root);
+        queue.add(null);
+        
+        while(!queue.isEmpty()) {
+            Node node = queue.remove();
+            if(node != null) {
+                if(node.left != null) queue.add(node.left);
+                if(node.right != null) queue.add(node.right);
+            }
+            else {
+                if(!queue.isEmpty()) { //This will avoid infinite loop
+                    queue.add(null);
+                }
+                width  = Math.max(queue.size(), width);
+            }
+        }
+        return width;
     }
     
 
