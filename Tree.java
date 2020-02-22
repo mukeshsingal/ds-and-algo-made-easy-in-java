@@ -25,7 +25,7 @@ class Node {
 }
 
 class Tree {
-
+    static int width = 0;
     public static void main(String[] args) {
         Node root = prepareTree();
         Node root2 = prepareTree2();
@@ -45,7 +45,10 @@ class Tree {
         //System.out.println("Leaf count " +  leafCount(root));
         //System.out.println("Leaf count iterative " +  leafCountIterative(root));
         //System.out.println("max is " + findMax(root));\
-        System.out.println("ifStructureSame  " +  ifStructureSame(root, root2));
+        //System.out.println("ifStructureSame  " +  ifStructureSame(root, root2));
+        width = 0;
+        diameter(root);
+        System.out.println("Diameter is " + width);
     }
 
     public static Node prepareTree() {
@@ -267,6 +270,16 @@ class Tree {
             return ifStructureSame(root1.left, root2.left) && ifStructureSame(root1.right, root2.right);
         }
         return false;
+    }
+    
+    public static int diameter(Node root) {
+        if(root == null) return 0;
+        int left = diameter(root.left);
+        int right = diameter(root.right);
+        if(left + right + 1 > width)  {
+            width = left + right + 1;
+        }
+        return Math.max(left, right) + 1;
     }
     
 
