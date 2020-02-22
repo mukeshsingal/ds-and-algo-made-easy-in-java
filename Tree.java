@@ -49,8 +49,9 @@ class Tree {
         // width = 0;
         // diameter(root);
         // System.out.println("Diameter is " + width);
+        //System.out.println("Width "  + width(root));
+        System.out.println("maxSumLevel "  + maxSumLevel(root));
         
-        System.out.println("Width "  + width(root));
     }
 
     public static Node prepareTree() {
@@ -307,6 +308,45 @@ class Tree {
             }
         }
         return width;
+    }
+
+    public static int maxSumLevel(Node root) {
+        //Do level order traversal
+        int level = 0;
+        if(root == null) {
+            return level;
+        }
+        Queue<Node> queue  = new LinkedList<>();
+        queue.add(root);
+        queue.add(null);
+        
+        int globalSum  =0 ;
+        int levelNumber = 0;
+        int localSum = 0;
+        
+        while(!queue.isEmpty()) {    
+            Node node = queue.remove();
+        
+            if(node != null) {
+                localSum += node.value;
+                if(node.left != null) queue.add(node.left);
+                if(node.right != null) queue.add(node.right);
+            }
+            else {
+                if(!queue.isEmpty()) { //This will avoid infinite loop
+                    queue.add(null);
+                }
+                if(localSum > globalSum) {
+                    level = levelNumber;
+                    globalSum  = localSum;
+                    
+                     
+                }
+                localSum = 0;
+                levelNumber++;
+            }
+        }
+        return level;
     }
     
 
