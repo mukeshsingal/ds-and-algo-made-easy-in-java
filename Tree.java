@@ -51,7 +51,10 @@ class Tree {
         // System.out.println("Diameter is " + width);
         //System.out.println("Width "  + width(root));
         //System.out.println("maxSumLevel "  + maxSumLevel(root));
-        printAllPathToLeaves(root);
+        //printAllPathToLeaves(root);
+        //System.out.println("checkPathSum" + checkPathSum(root, 91));
+        miror(root);
+        
         
     }
 
@@ -363,6 +366,39 @@ class Tree {
         }
         printAllPathToLeaves(root.left, str + " -> " + root.value);
         printAllPathToLeaves(root.right, str + " -> " + root.value);
+    }
+    
+    public static boolean checkPathSum(Node root, int sum) {
+        return checkPathSum(root, sum, 0);
+    }
+    public static boolean checkPathSum(Node root, int sum, int currentSum) {
+        if(root == null) {
+            return false;
+        }
+        if(root.value + currentSum == sum) {
+            return true;
+        }
+        currentSum += root.value;
+        return checkPathSum(root.left, sum, currentSum) || checkPathSum(root.right, sum, currentSum);
+    }
+    public static void miror(Node root) {
+        System.out.println("pre mirror");
+        printAllPathToLeaves(root);
+        mirorHelper(root, new Node());
+        System.out.println("post");
+        printAllPathToLeaves(root);
+    }
+
+    public static void mirorHelper(Node root, Node tmp) {
+        if(root == null) {
+            return;
+        }
+        tmp = root.left;
+        root.left = root.right;
+        root.right = tmp;
+
+        mirorHelper(root.left, tmp);
+        mirorHelper(root.right, tmp);
     }
 
 }
