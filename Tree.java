@@ -50,7 +50,8 @@ class Tree {
         // diameter(root);
         // System.out.println("Diameter is " + width);
         //System.out.println("Width "  + width(root));
-        System.out.println("maxSumLevel "  + maxSumLevel(root));
+        //System.out.println("maxSumLevel "  + maxSumLevel(root));
+        printAllPathToLeaves(root);
         
     }
 
@@ -348,7 +349,21 @@ class Tree {
         }
         return level;
     }
-    
+
+    public static void printAllPathToLeaves(Node root) {
+        printAllPathToLeaves(root, "");
+    }
+
+    public static void printAllPathToLeaves(Node root, String str) {
+        if(root == null) {
+            return;
+        }
+        if(root.left == null && root.right == null) {
+            System.out.println(str + " -> " + root.value);
+        }
+        printAllPathToLeaves(root.left, str + " -> " + root.value);
+        printAllPathToLeaves(root.right, str + " -> " + root.value);
+    }
 
 }
 
