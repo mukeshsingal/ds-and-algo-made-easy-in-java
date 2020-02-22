@@ -40,6 +40,7 @@ class Tree {
         //levelOrderTraversal(root);
         //reverseLevelOrderTraversal(root);
         System.out.println("Height of binary tree is  " + heightOfTree(root));
+        System.out.println("Height of binary tree is  " + heightOfTreeIterative(root));
         //System.out.println("max is " + findMax(root));
     }
 
@@ -190,6 +191,32 @@ class Tree {
             return Math.max(heightLeft, heightRight) + 1;
         }
         return 0;
+    }
+
+    public static int heightOfTreeIterative(Node root) {
+        //Do level order traversal
+        int height = 0;
+        if(root == null) {
+            return height;
+        }
+        Queue<Node> queue  = new LinkedList<>();
+        queue.add(root);
+        queue.add(null);
+        
+        while(!queue.isEmpty()) {
+            Node node = queue.remove();
+            if(node != null) {
+                if(node.left != null) queue.add(node.left);
+                if(node.right != null) queue.add(node.right);
+            }
+            else {
+                if(!queue.isEmpty()) { //This will avoid infinite loop
+                    queue.add(null);
+                }
+                height++;
+            }
+        }
+        return height;
     }
     
 
